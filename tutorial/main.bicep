@@ -1,11 +1,11 @@
-param location string = 'westeurope'
-param name string = 'theostorage008' // must be globally unique
-
-resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-  name: name
-  location: location
-  kind: 'Storage'
-  sku: {
-      name: 'Standard_LRS'
+resource storageaccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
+  name: 'theothecoolcryptoguy'
+  location: 'westus3'
+  sku:{
+    name: 'Standard_LRS'
+  }
+  kind:'StorageV2'
+  properties:{
+    accessTier:'Hot'
   }
 }
