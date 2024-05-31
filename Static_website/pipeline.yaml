@@ -1,0 +1,26 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: '<Azure subscription name>'
+  resourceGroupName: 'staticwebTheo'
+  location: 'eastus'
+  storageAccountName: '<storage account name>'
+  containerName: 'web'
+  localFilePath: '<local file path>'
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Deploy Bicep file'
+  inputs:
+    azureSubscription: $(azureSubscription)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az deployment group create \
+        --resource-group $(resourceGroupName) \
+        --template-file main.bicep \
+        --parameters storageAccountName=$(storageAccountName) containerName=$(containerName) localFilePath=$(localFilePath)
